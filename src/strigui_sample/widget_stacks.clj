@@ -1,7 +1,6 @@
 (ns strigui-sample.widget-stacks
   (:require [strigui.widget :as wdg]
-            [clojure2d.core :as c2d])
-  (:gen-class))
+            [clojure2d.core :as c2d]))
 
 (def ^:private width-per-stack 41)
 
