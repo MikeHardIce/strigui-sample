@@ -1,5 +1,6 @@
 (ns strigui-sample.core
-  (:require [strigui.core :as gui])
+  (:require [strigui.core :as gui]
+            [strigui-sample.widget-stacks :as st])
   (:gen-class))
 
 (defn -main
@@ -17,7 +18,7 @@
   (gui/button "e" "t" {:x 50 :y 250 :color [:green :red]})
   (gui/input "inp2" "" {:x 350 :y 100 :color [:white :red] :min-width 100})
   (gui/input "inp3" "last" {:x 350 :y 150 :color [:white :red] :min-width 100})
-  (gui/stacks "stacks" '(5 1 8 2 0 3 0 5 7) {:x 100 :y 400})
+  (gui/create (st/->Stack "stacks" '(5 1 8 2 0 3 0 5 7) {:x 100 :y 400}))
   (gui/find-by-name "inp2")
   (gui/remove! "inp1")
   (gui/update! "inp3" :value "Hello")
@@ -28,4 +29,6 @@
   (gui/update! "inp3" [:events :key-pressed] (fn [wdg code]
                                                (println (str "code in event: " code))
                                                (when (= code :enter)
-                                                 (gui/info "EEENNNTTTEERRR!!!")))))
+                                                 (gui/info "EEENNNTTTEERRR!!!"))))
+  (gui/update! "stacks" [:events :mouse-clicked] (fn [wdg]
+                                                   (gui/update! "welcome" :value "Stack clicked!"))))
