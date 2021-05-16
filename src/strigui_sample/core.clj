@@ -1,18 +1,9 @@
-# Strigui example project
-
-A tiny example of how to use strigui.
-
-```
-lein deps
-lein run
-```
-
-```
 (ns strigui-sample.core
   (:require [strigui.core :as gui])
   (:gen-class))
 
 (defn -main
+  "I don't do a whole lot ... yet."
   [& args]
   (gui/window! 600 600 "Strigui")
   (gui/label "welcome" "Welcome to Strigui" {:x 190 :y 20
@@ -38,7 +29,3 @@ lein run
                                                (println (str "code in event: " code))
                                                (when (= code :enter)
                                                  (gui/info "EEENNNTTTEERRR!!!")))))
-```
-
-TODO:
-- create a widget
