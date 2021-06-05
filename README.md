@@ -7,6 +7,8 @@ lein deps
 lein run
 ```
 
+![](resources/strigui-example.png)
+
 ```
 (ns strigui-sample.core
   (:require [strigui.core :as gui]
@@ -14,14 +16,14 @@ lein run
   (:gen-class))
 
 (defn -main
-  "I don't do a whole lot ... yet."
+  "Little example"
   [& args]
   (gui/window! 600 600 "Strigui")
   (gui/label "welcome" "Welcome to Strigui" {:x 190 :y 20
-                                             :color [:red]
+                                             :color [0xffaa11]
                                              :font-size 20 :font-style [:bold]})
-  (gui/button "a" "Hello World!" {:x 50 :y 50 :color [:green :red]})
-  (gui/button "b" "How are you?" {:x 50 :y 100 :color [:red :blue]
+  (gui/button "a" "Hello World!" {:x 50 :y 50 :color [:0xff1111 :green]})
+  (gui/button "b" "How are you?" {:x 50 :y 100 :color [0x223344 :blue]
                                   :font-size 20 :font-style [:bold]})
   (gui/button "c" "Blah" {:x 50 :y 150 :color [:blue :yellow] :min-width 100})
   (gui/button "d" "Bye" {:x 50 :y 200 :color [:yellow :green] :min-width 100})
