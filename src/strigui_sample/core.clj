@@ -10,14 +10,14 @@
   (gui/label! "welcome" "Welcome to Strigui" {:x 190 :y 20
                                              :color [0xffaa11]
                                              :font-size 20 :font-style [:bold]})
-  (gui/button! "a" "Hello World!" {:x 50 :y 50 :color [:0xff1111 :green] :can-tab? true})
-  (gui/button! "b" "How are you?" {:x 50 :y 100 :color [0x223344 :blue]
-                                  :font-size 20 :font-style [:bold]})
-  (gui/button! "c" "Blah" {:x 50 :y 150 :color [:blue :yellow] :min-width 100 :can-tab? true})
-  (gui/button! "d" "Bye" {:x 50 :y 200 :color [:yellow :green] :min-width 100})
-  (gui/button! "e" "t" {:x 50 :y 250 :color [:green :red]})
-  (gui/input! "inp2" "" {:x 350 :y 100 :color [:white :red] :min-width 100})
-  (gui/input! "inp3" "last" {:x 350 :y 150 :color [:white :red] :min-width 100})
+  (gui/button! "a" "Hello World!" {:x 50 :y 50 :color [0x001133 :orange] :min-width 250 :can-tab? true})
+  (gui/button! "b" "How are you?" {:x 50 :y 100 :color [0x001133 :orange]
+                                  :font-size 20 :font-style [:bold] :min-width 250})
+  (gui/button! "c" "Blah" {:x 50 :y 180 :color [0x001133 :orange] :min-width 150 :can-tab? true})
+  (gui/button! "d" "Bye" {:x 50 :y 230 :color [0x001133 :orange] :min-width 150})
+  (gui/button! "e" "t" {:x 50 :y 280 :color [0x001133 :orange] :min-width 150})
+  (gui/input! "inp2" "" {:x 320 :y 180 :color [:grey :orange] :min-width 150})
+  (gui/input! "inp3" "last" {:x 320 :y 230 :color [:grey :orange] :min-width 150})
   (gui/create! (st/->Stack "stacks" '(5 1 8 2 0 3 0 5 7) {:x 100 :y 400}))
   (gui/find-by-name "inp2")
   (gui/remove! "inp1")
