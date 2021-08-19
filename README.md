@@ -1,4 +1,4 @@
-# Strigui example label, buttons, input and custom widget
+# Strigui example
 
 A tiny example creating widgets with strigui (https://github.com/MikeHardIce/strigui).
 
