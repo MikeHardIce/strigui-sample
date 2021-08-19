@@ -39,9 +39,9 @@ lein run
                                                       (gui/update! "lbl-volume" :value @volume))))))
 ```
 
-The "stacks" widget at the bottom doesn't exist in strigui and is defined in [widget_stacks.clj](src/strigui_sample/widget_stacks.clj) as a new widget.
+The "stacks" widget representing the volume doesn't exist in strigui and is defined in [widget_stacks.clj](src/strigui_sample/widget_stacks.clj) as a new widget.
 
 The new widget is registered and drawn via 
 ```
-(gui/create (st/->Stack "stacks" '(5 1 8 2 0 3 0 5 7) {:x 100 :y 400}))
+(gui/create! (st/->Stack "volume" (list @volume) {:x 70 :y 70 :max 100}))
 ```
