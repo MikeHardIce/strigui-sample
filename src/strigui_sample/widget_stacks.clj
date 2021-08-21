@@ -20,17 +20,9 @@
   (let [height (+ h 2)]
     (draw-item-lines canvas val (+ x 3) (+ y height))))
 
-(defn draw-stacks
-  [canvas stack-vals x y max-height]
-  (loop [x-offset x
-         cur-index 0]
-    (when (< cur-index (count stack-vals))
-      (draw-stack canvas (nth stack-vals cur-index) x-offset y max-height)
-      (recur (+ x-offset 45) (inc cur-index)))))
-
 (defrecord Stack [name value args]
   wdg/Widget
-  (coord [this canvas] [(:x (:args this))
+  (coord [this _] [(:x (:args this))
                         (:y (:args this))
                         (+  width-per-stack 35)
                         (* (-> this :args :max) 3)])
@@ -38,6 +30,6 @@
   (args [this] (:args this))
   (widget-name [this] (:name this))
   (draw [this canvas]
-    (let [[x y _ _] (wdg/coord this canvas)]
-      (draw-stacks canvas (wdg/value this) x y (-> this :args :max (* 3)))
+    (let [[x y _ h] (wdg/coord this canvas)]
+      (draw-stack canvas (wdg/value this) x y h)
       this)))
