@@ -43,5 +43,5 @@ The "stacks" widget representing the volume doesn't exist in strigui and is defi
 
 The new widget is registered and drawn via 
 ```
-(gui/create! (st/->Stack "volume" (list @volume) {:x 70 :y 70 :max 100}))
+(gui/create! (st/->Stack "volume" @volume {:x 70 :y 70 :max 100}))
 ```
