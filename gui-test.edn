@@ -1,0 +1,8 @@
+{:window [300 400 "Strigui from Edn"]
+ :strigui.label/Label [["title" "Volume" {:x 100 :y 50 :color [0xffaa11] :font-size 20 :font-style [:bold]}]
+                       ["lbl-volume" 50 {:x 150 :y 150 :color [0xffaa11] :font-size 20 :font-style [:bold]}]]
+ :strigui.button/Button [["left" "<" {:x 150 :y 200 :color [0x001133 :orange]
+                                      :font-style [:bold] :min-width 30 :can-tab? true}]
+                         ["right" ">" {:x 200 :y 200 :color [0x001133 :orange]
+                                       :font-style [:bold] :min-width 30 :can-tab? true :selected true}]]
+ :strigui-sample.widget-stacks/Stack [["volume" 50 {:x 70 :y 70 :max 100}]]}
