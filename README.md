@@ -1,6 +1,6 @@
 # Strigui example
 
-A tiny example creating widgets with strigui (https://github.com/MikeHardIce/strigui).
+A tiny example creating widgets with [strigui](https://github.com/MikeHardIce/strigui).
 
 ```
 lein deps
