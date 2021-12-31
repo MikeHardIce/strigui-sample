@@ -1,19 +1,18 @@
 (ns strigui-sample.widget-stacks
   (:require [strigui.widget :as wdg]
-            [clojure2d.core :as c2d]))
+            [capra.core :as c])
+  (:import [java.awt Color]))
 
 (def ^:private width-per-stack 41)
 
 (defn draw-item-lines
   [canvas val x y]
-  (loop [y-offset (- y 3)
+  (loop [y-offset (- y 4)
          curr-val val]
     (when (> curr-val 0)
-      (c2d/with-canvas-> canvas
-        (c2d/set-color :green)
-        (c2d/set-stroke 2)
-        (c2d/line x y-offset (+ x 30) y-offset))
-      (recur (- y-offset 3) (- curr-val 1)))))
+      (c/draw-> canvas
+        (c/rect x y-offset 30 3 Color/green 2))
+      (recur (- y-offset 4) (- curr-val 1)))))
 
 (defn draw-stack
   [canvas val x y h]
@@ -25,7 +24,7 @@
   (coord [this _] [(:x (:args this))
                         (:y (:args this))
                         (+  width-per-stack 35)
-                        (* (-> this :args :max) 3)])
+                        (* (-> this :args :max) 4)])
   (defaults [this] this)
   (draw [this canvas]
     (let [[x y _ h] (wdg/coord this canvas)]

@@ -14,18 +14,18 @@ The volumne bar is defined in [widget_stacks.clj](src/strigui_sample/widget_stac
 ## Create widgets via a edn file
 
 gui-test.edn
-```
-{:window [300 400 "Strigui from Edn"]
- :strigui.label/Label [["title" "Volume" {:x 100 :y 50 :color [0xffaa11] :font-size 20 :font-style [:bold]}]
-                       ["lbl-volume" 50 {:x 150 :y 150 :color [0xffaa11] :font-size 20 :font-style [:bold]}]]
- :strigui.button/Button [["left" "<" {:x 150 :y 200 :color [0x001133 :orange]
+```Clojure
+{:window [400 400 300 500 "Strigui from Edn"]
+ :strigui.label/Label [["title" "Volume" {:x 100 :y 50  :color [java.awt.Color/red] :font-size 20 :font-style [:bold]}]
+                       ["lbl-volume" 50 {:x 150 :y 150 :color [java.awt.Color/red] :font-size 20 :font-style [:bold]}]]
+ :strigui.button/Button [["left" "<" {:x 150 :y 200 :color [java.awt.Color/red java.awt.Color/orange]
                                       :font-style [:bold] :min-width 30 :can-tab? true}]
-                         ["right" ">" {:x 200 :y 200 :color [0x001133 :orange]
-                                       :font-style [:bold] :min-width 30 :can-tab? true :selected true}]]
+                         ["right" ">" {:x 200 :y 200 :color [java.awt.Color/red java.awt.Color/orange]
+                                       :font-style [:bold] :min-width 30 :can-tab? true}]]
  :strigui-sample.widget-stacks/Stack [["volume" 50 {:x 70 :y 70 :max 100}]]}
 ```
 in core.clj
-```
+```Clojure
 ns strigui-sample.core
   (:require [strigui.core :as gui]
             [strigui-sample.widget-stacks])
@@ -49,13 +49,13 @@ ns strigui-sample.core
 ```
 
 Note, if you use custom widget like 
-```
+```Clojure
 :strigui-sample.widget-stacks/Stack
 ```
 in the edn file, then make sure to include the namespace when loading the file.
 
 ## Create widgets inside your code
-```
+```CLojure
 (ns strigui-sample.core
   (:require [strigui.core :as gui]
             [strigui-sample.widget-stacks :as st])
@@ -88,6 +88,6 @@ in the edn file, then make sure to include the namespace when loading the file.
 The "stacks" widget representing the volume doesn't exist in strigui and is defined in [widget_stacks.clj](src/strigui_sample/widget_stacks.clj) as a new widget.
 
 The new widget is registered and drawn via 
-```
+```Clojure
 (gui/create! (st/->Stack "volume" @volume {:x 70 :y 70 :max 100}))
 ```

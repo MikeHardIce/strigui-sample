@@ -12,7 +12,9 @@
                                                   (when (> @volume 0)
                                                     (swap! volume dec)
                                                     (gui/update! "volume" :value @volume)
-                                                    (gui/update! "lbl-volume" :value @volume)))})
+                                                    (gui/update! "lbl-volume" :value @volume)
+                                                    (gui/update-skip-redraw! "left" [:args :selected?] true)
+                                                    ))})
     (gui/update! "right" [:events :mouse-clicked] (fn [wdg]
                                                     (when (< @volume 100)
                                                       (swap! volume inc)
