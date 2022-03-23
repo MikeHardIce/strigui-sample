@@ -80,7 +80,13 @@ in the edn file, then make sure to include the namespace when loading the file.
 
 The "stacks" widget representing the volume doesn't exist in strigui and is defined in [widget_stacks.clj](src/strigui_sample/widget_stacks.clj) as a new widget.
 
-The new widget is registered and drawn via 
+If not added in the edn file, it can also be added in the code via:
+
 ```Clojure
-(gui/create! (st/->Stack "volume" @volume {:x 70 :y 70 :max 100}))
+...
+(:require ...
+            [strigui-sample.widget-stacks :as st])
+...
+(gui/swap-widgets! (fn [wdgs]
+                       (gui/add wdgs (st/->Stack "stacks" '(5 1 8 2 0 3 0 5 7) {:x 100 :y 400}))))
 ```
