@@ -2,8 +2,8 @@
   :description "A little example how to use strigui"
   :url "http://example.com/FIXME"
   :dependencies [[org.clojure/clojure "1.10.3"]
-                 [strigui "0.0.1-alpha22"]
-                 [com.github.mikehardice/capra "0.0.1-alpha3"]]
+                 [strigui "0.0.1-alpha25"]
+                 [com.github.mikehardice/capra "0.0.1-alpha4"]]
   :main ^:skip-aot strigui-sample.core
   :target-path "target/%s"
   :profiles {:uberjar {:aot :all}})

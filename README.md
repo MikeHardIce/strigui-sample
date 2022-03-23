@@ -26,64 +26,57 @@ gui-test.edn
 ```
 in core.clj
 ```Clojure
-ns strigui-sample.core
+(ns strigui-sample.core
   (:require [strigui.core :as gui]
+            [strigui.widget :as wdg]
             [strigui-sample.widget-stacks])
   (:gen-class))
-  
+
+(defn update-volume 
+  [wdgs volume]
+  (-> wdgs
+      (assoc-in ["volume" :value] volume)
+      (assoc-in ["lbl-volume" :value] volume)))
+
 (defn -main
   "Little example"
   [& args]
-  (gui/from-file "gui-test.edn")
-  (let [volume (atom 50)]
-    (gui/update! "left" :events {:mouse-clicked (fn [wdg]
-                                                  (when (> @volume 0)
-                                                    (swap! volume dec)
-                                                    (gui/update! "volume" :value @volume)
-                                                    (gui/update! "lbl-volume" :value @volume)))})
-    (gui/update! "right" [:events :mouse-clicked] (fn [wdg]
-                                                    (when (< @volume 100)
-                                                      (swap! volume inc)
-                                                      (gui/update! "volume" :value @volume)
-                                                      (gui/update! "lbl-volume" :value @volume))))))
+  (gui/from-file! "gui-test.edn")
+  (gui/swap-widgets! (fn [wdgs]
+                       (-> wdgs 
+                           (gui/attach-event "left" :mouse-clicked (fn [widgets _]
+                                                                     (let [volume (dec (:value (get widgets "lbl-volume")))]
+                                                                       (if (>= volume 0)
+                                                                         (update-volume widgets volume)
+                                                                         widgets))))
+                           (gui/attach-event "right" :mouse-clicked (fn [widgets _]
+                                                                      (let [volume (inc (:value (get widgets "lbl-volume")))]
+                                                                        (if (<= volume 100)
+                                                                          (update-volume widgets volume)
+                                                                          widgets))))))))
+
+(defmethod wdg/widget-global-event :key-pressed
+ [_ widgets char code]
+   (cond 
+     (= code 37) (let [volume (dec (:value (get widgets "lbl-volume")))]
+                   (if (>= volume 0)
+                     (update-volume widgets volume)
+                     widgets))
+     (= code 39) (let [volume (inc (:value (get widgets "lbl-volume")))]
+                   (if (<= volume 100)
+                     (update-volume widgets volume)
+                     widgets))
+     :else widgets))
 ```
+
+The buttons themself are responding to mouse-clicks as well as the entire program is responding to key inputs and listens for the left and right
+arrow key.
 
 Note, if you use custom widget like 
 ```Clojure
 :strigui-sample.widget-stacks/Stack
 ```
 in the edn file, then make sure to include the namespace when loading the file.
-
-## Create widgets inside your code
-```CLojure
-(ns strigui-sample.core
-  (:require [strigui.core :as gui]
-            [strigui-sample.widget-stacks :as st])
-  (:gen-class))
-
-(defn -main
-  "Little example"
-  [& args]
-  (gui/window! 300 400 "Strigui")
-  (gui/label! "title" "Volume" {:x 100 :y 50 :color [0xffaa11] :font-size 20 :font-style [:bold]})
-  (gui/button! "left" "<" {:x 150 :y 200 :color [0x001133 :orange]
-                          :font-style [:bold] :min-width 30 :can-tab? true})
-  (gui/button! "right" ">" {:x 200 :y 200 :color [0x001133 :orange]
-                                  :font-style [:bold] :min-width 30 :can-tab? true :selected true})
-  (let [volume (atom 50)]
-    (gui/create! (st/->Stack "volume" @volume {:x 70 :y 70 :max 100}))
-    (gui/label! "lbl-volume" @volume {:x 150 :y 150 :color [0xffaa11] :font-size 20 :font-style [:bold] })
-    (gui/update! "left" :events {:mouse-clicked (fn [wdg]
-                                                  (when (> @volume 0)
-                                                    (swap! volume dec)
-                                                    (gui/update! "volume" :value @volume)
-                                                    (gui/update! "lbl-volume" :value @volume)))})
-    (gui/update! "right" [:events :mouse-clicked] (fn [wdg]
-                                                    (when (< @volume 100)
-                                                      (swap! volume inc)
-                                                      (gui/update! "volume" :value @volume)
-                                                      (gui/update! "lbl-volume" :value @volume))))))
-```
 
 The "stacks" widget representing the volume doesn't exist in strigui and is defined in [widget_stacks.clj](src/strigui_sample/widget_stacks.clj) as a new widget.
 

@@ -26,6 +26,7 @@
                         (+  width-per-stack 35)
                         (* (-> this :args :max) 4)])
   (defaults [this] this)
+  (before-drawing [this] this)
   (draw [this canvas]
     (let [[x y _ h] (wdg/coord this canvas)]
       (draw-stack canvas (:value this) x y h)
