@@ -30,4 +30,5 @@
   (draw [this canvas]
     (let [[x y _ h] (wdg/coord this canvas)]
       (draw-stack canvas (:value this) x y h)
-      this)))
+      this))
+  (after-drawing [this] this))
