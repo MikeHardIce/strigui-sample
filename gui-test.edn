@@ -1,8 +1,8 @@
-{:window [400 400 300 500 "Strigui from Edn"]
- :strigui.label/Label [["title" "Volume" {:x 100 :y 50  :color [java.awt.Color/orange] :font-size 20 :font-style [:bold]}]
-                       ["lbl-volume" 50 {:x 150 :y 150 :color [java.awt.Color/orange] :font-size 20 :font-style [:bold]}]]
- :strigui.button/Button [["left" "<" {:x 150 :y 200 :color [java.awt.Color/blue java.awt.Color/orange]
-                                      :font-style [:bold] :min-width 30 :can-tab? true}]
-                         ["right" ">" {:x 200 :y 200 :color [java.awt.Color/blue java.awt.Color/orange]
-                                       :font-style [:bold] :min-width 30 :can-tab? true}]]
- :strigui-sample.widget-stacks/Stack [["volume" 50 {:x 70 :y 70 :max 100}]]}
+{:window [["main" 400 200 300 600 "Strigui from Edn" {:resizable? true :on-close #window exit}]]
+ :strigui.label/Label [["title" "Volume" {:x 100 :y 50   :font-size 20 :font-style [:bold] :window "main"}]
+                       ["lbl-volume" 50 {:x 150 :y 150  :font-size 20 :font-style [:bold] :window "main"} ]]
+ :strigui.button/Button [["left" "<" {:x 150 :y 200 :width 30 :highlight [:alpha :border]
+                                      :font-style [:bold] :can-tab? true :window "main"}]
+                         ["right" ">" {:x 200 :y 200 :width 30 :highlight [:alpha :border]
+                                       :font-style [:bold] :min-width 30 :can-tab? true :window "main"}]]
+ :strigui-sample.widget-stacks/Stack [["volume" 50 {:x 70 :y 70 :width 50 :height 200 :max 100 :window "main"}]]}

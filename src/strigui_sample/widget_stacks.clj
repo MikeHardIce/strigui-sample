@@ -19,12 +19,13 @@
   (let [height (+ h 2)]
     (draw-item-lines canvas val (+ x 3) (+ y height))))
 
-(defrecord Stack [name value args]
+(defrecord Stack [name value props]
   wdg/Widget
-  (coord [this _] [(:x (:args this))
-                        (:y (:args this))
+  (coord [this _] 
+    [(:x (:props this))
+                        (:y (:props this))
                         (+  width-per-stack 35)
-                        (* (-> this :args :max) 4)])
+                        (* (-> this :props :max) 4)])
   (defaults [this] this)
   (before-drawing [this] this)
   (draw [this canvas]

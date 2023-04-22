@@ -38,8 +38,12 @@ in core.clj
       (assoc-in ["volume" :value] volume)
       (assoc-in ["lbl-volume" :value] volume)))
 
+(defn focus-widget
+  [wdgs name value]
+  (assoc-in wdgs [name :props :focused?] value))
+
 (defn -main
-  "Little example"
+  "Little example for strigui alpha32"
   [& args]
   (gui/from-file! "gui-test.edn")
   (gui/swap-widgets! (fn [wdgs]
@@ -56,17 +60,25 @@ in core.clj
                                                                           widgets))))))))
 
 (defmethod wdg/widget-global-event :key-pressed
- [_ widgets char code]
-   (cond 
-     (= code 37) (let [volume (dec (:value (get widgets "lbl-volume")))]
+ [_ widgets window-name char code]
+   (cond
+     (= code 37) (let [volume (dec (:value (get widgets "lbl-volume")))
+                       widgets (-> widgets
+                                   (focus-widget "left" true)
+                                   (focus-widget "right" false))]
                    (if (>= volume 0)
                      (update-volume widgets volume)
                      widgets))
-     (= code 39) (let [volume (inc (:value (get widgets "lbl-volume")))]
+     (= code 39) (let [volume (inc (:value (get widgets "lbl-volume")))
+                       widgets (-> widgets
+                                   (focus-widget "left" false)
+                                   (focus-widget "right" true))]
                    (if (<= volume 100)
                      (update-volume widgets volume)
                      widgets))
-     :else widgets))
+     :else (-> widgets
+               (focus-widget "left" false)
+               (focus-widget "right" false))))
 ```
 
 The buttons themself are responding to mouse-clicks as well as the entire program is responding to key inputs and listens for the left and right
