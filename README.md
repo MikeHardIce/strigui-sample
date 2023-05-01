@@ -15,14 +15,14 @@ The volumne bar is defined in [widget_stacks.clj](src/strigui_sample/widget_stac
 
 gui-test.edn
 ```Clojure
-{:window [400 400 300 500 "Strigui from Edn"]
- :strigui.label/Label [["title" "Volume" {:x 100 :y 50  :color [java.awt.Color/red] :font-size 20 :font-style [:bold]}]
-                       ["lbl-volume" 50 {:x 150 :y 150 :color [java.awt.Color/red] :font-size 20 :font-style [:bold]}]]
- :strigui.button/Button [["left" "<" {:x 150 :y 200 :color [java.awt.Color/red java.awt.Color/orange]
-                                      :font-style [:bold] :min-width 30 :can-tab? true}]
-                         ["right" ">" {:x 200 :y 200 :color [java.awt.Color/red java.awt.Color/orange]
-                                       :font-style [:bold] :min-width 30 :can-tab? true}]]
- :strigui-sample.widget-stacks/Stack [["volume" 50 {:x 70 :y 70 :max 100}]]}
+{:window [["main" 400 200 300 600 "Strigui from Edn" {:resizable? true :on-close #window exit}]]
+ :strigui.label/Label [["title" "Volume" {:x 100 :y 50   :font-size 20 :font-style [:bold] :window "main"}]
+                       ["lbl-volume" 50 {:x 150 :y 150  :font-size 20 :font-style [:bold] :window "main"} ]]
+ :strigui.button/Button [["left" "<" {:x 150 :y 200 :width 30 :highlight [:alpha :border]
+                                      :font-style [:bold] :can-tab? true :window "main"}]
+                         ["right" ">" {:x 200 :y 200 :width 30 :highlight [:alpha :border]
+                                       :font-style [:bold] :min-width 30 :can-tab? true :window "main"}]]
+ :strigui-sample.widget-stacks/Stack [["volume" 50 {:x 70 :y 70 :width 50 :height 200 :max 100 :window "main"}]]}
 ```
 in core.clj
 ```Clojure
@@ -60,7 +60,7 @@ in core.clj
                                                                           widgets))))))))
 
 (defmethod wdg/widget-global-event :key-pressed
- [_ widgets window-name char code]
+ [_ widgets window-name char code _]
    (cond
      (= code 37) (let [volume (dec (:value (get widgets "lbl-volume")))
                        widgets (-> widgets
@@ -99,6 +99,5 @@ If not added in the edn file, it can also be added in the code via:
 (:require ...
             [strigui-sample.widget-stacks :as st])
 ...
-(gui/swap-widgets! (fn [wdgs]
-                       (gui/add wdgs (st/->Stack "stacks" '(5 1 8 2 0 3 0 5 7) {:x 100 :y 400}))))
+(gui/swap-widgets! #(gui/add % (st/->Stack "stacks" 50 {:x 100 :y 400})))
 ```
