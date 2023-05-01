@@ -6,11 +6,11 @@
 (def ^:private width-per-stack 41)
 
 (defn draw-item-lines
-  [canvas val x y]
+  [window val x y]
   (loop [y-offset (- y 4)
          curr-val val]
     (when (> curr-val 0)
-      (c/draw-> canvas
+      (c/draw-> window
         (c/rect x y-offset 30 3 Color/green 2))
       (recur (- y-offset 4) (- curr-val 1)))))
 
@@ -28,8 +28,8 @@
                         (* (-> this :props :max) 4)])
   (defaults [this] this)
   (before-drawing [this] this)
-  (draw [this canvas]
-    (let [[x y _ h] (wdg/coord this canvas)]
-      (draw-stack canvas (:value this) x y h)
+  (draw [this window]
+    (let [[x y _ h] (wdg/coord this window)]
+      (draw-stack window (:value this) x y h)
       this))
   (after-drawing [this] this))

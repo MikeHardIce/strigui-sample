@@ -32,7 +32,7 @@
                                                                           widgets))))))))
 
 (defmethod wdg/widget-global-event :key-pressed
- [_ widgets window-name char code]
+ [_ widgets window-name char code _]
    (cond
      (= code 37) (let [volume (dec (:value (get widgets "lbl-volume")))
                        widgets (-> widgets
