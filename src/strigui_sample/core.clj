@@ -15,24 +15,24 @@
   (assoc-in wdgs [name :props :focused?] value))
 
 (defn -main
-  "Little example for strigui alpha32"
+  "Example for strigui alpha32"
   [& args]
   (gui/from-file! "gui-test.edn")
   (gui/swap-widgets! (fn [wdgs]
                        (-> wdgs 
-                           (gui/attach-event "left" :mouse-clicked (fn [widgets _]
+                           (gui/attach-event "left" :mouse-clicked (fn [widgets _ _ _]
                                                                      (let [volume (dec (:value (get widgets "lbl-volume")))]
                                                                        (if (>= volume 0)
                                                                          (update-volume widgets volume)
                                                                          widgets))))
-                           (gui/attach-event "right" :mouse-clicked (fn [widgets _]
+                           (gui/attach-event "right" :mouse-clicked (fn [widgets _ _ _]
                                                                       (let [volume (inc (:value (get widgets "lbl-volume")))]
                                                                         (if (<= volume 100)
                                                                           (update-volume widgets volume)
                                                                           widgets))))))))
 
 (defmethod wdg/widget-global-event :key-pressed
- [_ widgets window-name char code _]
+ [_ widgets _ _ code _]
    (cond
      (= code 37) (let [volume (dec (:value (get widgets "lbl-volume")))
                        widgets (-> widgets
