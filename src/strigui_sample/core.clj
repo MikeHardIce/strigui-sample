@@ -20,19 +20,19 @@
   (gui/from-file! "gui-test.edn")
   (gui/swap-widgets! (fn [wdgs]
                        (-> wdgs 
-                           (gui/attach-event "left" :mouse-clicked (fn [widgets _ _ _]
+                           (gui/attach-event "left" :mouse-clicked (fn [widgets _]
                                                                      (let [volume (dec (:value (get widgets "lbl-volume")))]
                                                                        (if (>= volume 0)
                                                                          (update-volume widgets volume)
                                                                          widgets))))
-                           (gui/attach-event "right" :mouse-clicked (fn [widgets _ _ _]
+                           (gui/attach-event "right" :mouse-clicked (fn [widgets _]
                                                                       (let [volume (inc (:value (get widgets "lbl-volume")))]
                                                                         (if (<= volume 100)
                                                                           (update-volume widgets volume)
                                                                           widgets))))))))
 
 (defmethod wdg/widget-global-event :key-pressed
- [_ widgets _ _ code _]
+ [widgets {:keys [code]}]
    (cond
      (= code 37) (let [volume (dec (:value (get widgets "lbl-volume")))
                        widgets (-> widgets
